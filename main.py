@@ -44,9 +44,17 @@ def main():
     # add titles above the game boards
 
     # draw 'YOU' centered above my_board
-
+    val = utilities.create_text('USN', 24, colors.foreground)
+    val_rect = val.get_rect()
+    val_rect.centerx = PADDING + my_board.width // 2
+    val_rect.centery = TOP_MARGIN // 2
+    screen.blit(val, val_rect)
     # draw 'THEM' centered above their_board
-
+    val = utilities.create_text('IRGN', 24, colors.foreground)
+    val_rect = val.get_rect()
+    val_rect.centerx = 2 * PADDING + 3 * my_board.width // 2
+    val_rect.centery = TOP_MARGIN // 2
+    screen.blit(val, val_rect)
     # --------- END YOUR CODE ------------
 
     # create a human player

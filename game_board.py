@@ -1,5 +1,6 @@
 import pygame
 import colors
+import utilities
 
 NBLOCKS = 11
 
@@ -42,16 +43,40 @@ class GameBoard(pygame.sprite.Sprite):
 
         # Draw row and column header backgrounds
         #   Headers should be 1 block wide/tall and use color [header]
-
+        pygame.draw.rect(self.image, colors.header, (0, 0, self.x_step * NBLOCKS, self.y_step))
+        pygame.draw.rect(self.image, colors.header, (0, 0, self.x_step, self.y_step * NBLOCKS))
         # Draw grid lines use color [foreground]
+        for i in range(11):
+            pygame.draw.line(self.image, colors.foreground,
+                             (0, self.y_step * i), (self.x_step * NBLOCKS, self.y_step * i), 2)
+            pygame.draw.line(self.image, colors.foreground,
+                             (self.x_step * i, 0), (self.x_step * i, self.y_step * NBLOCKS), 2)
 
         # Draw row labels [A-J] centered in each header block
         #    use color [foreground] and font [
+        row = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+        for i in range(10):
+            val = utilities.create_text(row[i], 24, colors.foreground)
+            val_rect = val.get_rect()
+            val_rect.centerx = self.x_step // 2
+            val_rect.centery = 3 * self.y_step // 2 + self.y_step * i
+            self.image.blit(val, val_rect)
 
         # Draw column labels [0-9] centered in each header block
         #    use color [foreground]
+        row = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+        for i in range(10):
+            val = utilities.create_text(row[i], 24, colors.foreground)
+            val_rect = val.get_rect()
+            val_rect.centery = self.y_step // 2
+            val_rect.centerx = 3 * self.x_step // 2 + self.x_step * i
+            self.image.blit(val, val_rect)
 
         # Draw border around the board use color [foreground]
+        pygame.draw.line(self.image, colors.foreground,
+                         (0, self.height - 2), (self.x_step * NBLOCKS, self.height - 2), 2)
+        pygame.draw.line(self.image, colors.foreground,
+                         (self.width - 2, 0), (self.width - 2, self.y_step * NBLOCKS), 2)
 
         # --------- END YOUR CODE ------------
 
