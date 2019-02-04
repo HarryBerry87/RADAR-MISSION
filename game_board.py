@@ -1,6 +1,9 @@
 import pygame
 import colors
+import string
 import utilities
+from typing import Tuple
+
 
 NBLOCKS = 11
 
@@ -82,3 +85,13 @@ class GameBoard(pygame.sprite.Sprite):
 
     def draw(self, surface):
         surface.blit(self.image, (self.rect.x, self.rect.y))
+
+    def add_sprite(self, sprite: pygame.Surface, loc: Tuple[int, int]):
+        """
+        Place a sprite on the game board in location (row,col)
+        """
+        row = loc[0]
+        col = loc[1]
+        x = self.x_step * (col + 1)
+        y = self.y_step * (row + 1)
+        self.image.blit(sprite, (x, y))

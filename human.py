@@ -1,6 +1,7 @@
+import ship, game_board, sprites
+from random import randint
+from typing import List, Tuple, Optional
 
-import ship, game_board, sprites, random
-from typing import List, Tuple
 
 
 class Human:
@@ -15,7 +16,7 @@ class Human:
         # list of (row,col) coordinates
         self._my_hit: List[Tuple[int, int]] = []
         # list of ship objects
-        self._sunk_ships = []
+        self._sunk_ships: List[ship.Ship] = []
         # list of (row,col) coordinates
         self._their_misses: List[Tuple[int, int]] = []
         # list of (row,col) coordinates
@@ -24,10 +25,10 @@ class Human:
         # the board matrix is a 10x10 structure with
         # pointers to ship objects. Initialize to all
         # None values- no ships are on the board
-        self._board_matrix = [[None] * 10 for _ in range(10)]
+        self._board_matrix: List[List[Optional[ship.Ship]]] = [[None] * 10 for _ in range(10)]
 
         # set to True if all opponent's ships are sunk
-        self.complete = False
+        self.complete: bool = False
 
     def initialize(self):
         """ Create a valid ship layout
