@@ -1,5 +1,5 @@
 
-import ship, game_board, sprites
+import ship, game_board, sprites, random
 from typing import List, Tuple
 
 
@@ -53,7 +53,9 @@ class Human:
 
             # 1.) create ship of the given length at a random (row,col)
             #     position either horizontal or vertical
-
+            # x_orig = random.randint(0, 9)
+            # y_orig = random.randint(0, 9)
+            # orient = random.choice('Horizontal', 'Vertical')
             # 2.) check if this conflicts with any of the other ships by
             #     by making sure that every entry in _board_matrix is None
 
