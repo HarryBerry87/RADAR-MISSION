@@ -1,4 +1,4 @@
-import game_board
+import game_board, sprites
 
 
 class Ship:
@@ -49,5 +49,17 @@ class Ship:
         """
 
         # --------- BEGIN YOUR CODE ----------
+        if self.is_vertical is True:
+            board.add_sprite(sprites.ship_top, (self.row, self.col))
+            for i in range(1, self.length - 1):
+                board.add_sprite(sprites.ship_vertical, (self.row + i, self.col))
 
+            board.add_sprite(sprites.ship_bottom, (self.row + self.length - 1, self.col))
+
+        if self.is_vertical is False:
+            board.add_sprite(sprites.ship_left, (self.row, self.col))
+            for i in range(1, self.length - 1):
+                board.add_sprite(sprites.ship_horizontal, (self.row, self.col + i))
+
+            board.add_sprite(sprites.ship_right, (self.row, self.col + self.length - 1))
         # --------- END YOUR CODE ----------

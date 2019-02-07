@@ -39,7 +39,6 @@ def main():
     # paint the board surface
     my_board.refresh()
     their_board.refresh()
-
     # --------- BEGIN YOUR CODE ----------
     # add titles above the game boards
 
@@ -65,7 +64,6 @@ def main():
     # place the board on the screen
     their_board.draw(screen)
     my_board.draw(screen)
-    screen.blit(ship.ship_top, (0, 0))
 
     while True:
         # wait for user to click 'X' button

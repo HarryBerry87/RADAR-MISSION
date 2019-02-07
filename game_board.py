@@ -51,9 +51,9 @@ class GameBoard(pygame.sprite.Sprite):
         # Draw grid lines use color [foreground]
         for i in range(11):
             pygame.draw.line(self.image, colors.foreground,
-                             (0, self.y_step * i), (self.x_step * NBLOCKS, self.y_step * i), 2)
+                             (0, self.y_step * i), (self.x_step * NBLOCKS, self.y_step * i), 1)
             pygame.draw.line(self.image, colors.foreground,
-                             (self.x_step * i, 0), (self.x_step * i, self.y_step * NBLOCKS), 2)
+                             (self.x_step * i, 0), (self.x_step * i, self.y_step * NBLOCKS), 1)
 
         # Draw row labels [A-J] centered in each header block
         #    use color [foreground] and font [

@@ -28,25 +28,66 @@ sprites.append(ship_top)
 # --------- BEGIN YOUR CODE ----------
 
 # ---ship_left (30x30)---
+ship_left = pygame.Surface((SPRITE_WIDTH, SPRITE_HEIGHT))
+ship_left.blit(sprite_sheet, (0, 0),
+               pygame.Rect(SPRITE_WIDTH * 1 + SPRITE_MARGIN * 1, SPRITE_HEIGHT * 0 + SPRITE_MARGIN * 0,
+                           SPRITE_WIDTH, SPRITE_HEIGHT))
+sprites.append(ship_left)
 
 # ---ship_bottom (30x30)---
-
+ship_bottom = pygame.Surface((SPRITE_WIDTH, SPRITE_HEIGHT))
+ship_bottom.blit(sprite_sheet, (0, 0),
+               pygame.Rect(SPRITE_WIDTH * 2 + SPRITE_MARGIN * 2, SPRITE_HEIGHT * 0 + SPRITE_MARGIN * 0,
+                           SPRITE_WIDTH, SPRITE_HEIGHT))
+sprites.append(ship_bottom)
 # ---ship_right (30x30)---
-
+ship_right = pygame.Surface((SPRITE_WIDTH, SPRITE_HEIGHT))
+ship_right.blit(sprite_sheet, (0, 0),
+                pygame.Rect(SPRITE_WIDTH * 3 + SPRITE_MARGIN * 3, SPRITE_HEIGHT * 0 + SPRITE_MARGIN * 0,
+                            SPRITE_WIDTH, SPRITE_HEIGHT))
+sprites.append(ship_right)
 # ---ship_horizontal (30x30)---
-
+ship_horizontal = pygame.Surface((SPRITE_WIDTH, SPRITE_HEIGHT))
+ship_horizontal.blit(sprite_sheet, (0, 0),
+                     pygame.Rect(SPRITE_WIDTH * 0 + SPRITE_MARGIN * 0, SPRITE_HEIGHT * 1 + SPRITE_MARGIN * 1,
+                                 SPRITE_WIDTH, SPRITE_HEIGHT))
+sprites.append(ship_horizontal)
 # ---ship_vertical (30x30)---
-
+ship_vertical = pygame.Surface((SPRITE_WIDTH, SPRITE_HEIGHT))
+ship_vertical.blit(sprite_sheet, (0, 0),
+                   pygame.Rect(SPRITE_WIDTH * 1 + SPRITE_MARGIN * 1, SPRITE_HEIGHT * 1 + SPRITE_MARGIN * 1,
+                               SPRITE_WIDTH, SPRITE_HEIGHT))
+sprites.append(ship_vertical)
 # ---hit (30x30)---
-
+ship_hit = pygame.Surface((SPRITE_WIDTH, SPRITE_HEIGHT))
+ship_hit.blit(sprite_sheet, (0, 0),
+              pygame.Rect(SPRITE_WIDTH * 2 + SPRITE_MARGIN * 2, SPRITE_HEIGHT * 1 + SPRITE_MARGIN * 1,
+                          SPRITE_WIDTH, SPRITE_HEIGHT))
+sprites.append(ship_hit)
 # ---miss (30x30)---
-
+ship_miss = pygame.Surface((SPRITE_WIDTH, SPRITE_HEIGHT))
+ship_miss.blit(sprite_sheet, (0, 0),
+               pygame.Rect(SPRITE_WIDTH * 3 + SPRITE_MARGIN * 3, SPRITE_HEIGHT * 1 + SPRITE_MARGIN * 1,
+                           SPRITE_WIDTH, SPRITE_HEIGHT))
+sprites.append(ship_miss)
 # ---ship_sunk (30x30)---
-
+ship_sunk = pygame.Surface((SPRITE_WIDTH, SPRITE_HEIGHT))
+ship_sunk.blit(sprite_sheet, (0, 0),
+               pygame.Rect(SPRITE_WIDTH * 0 + SPRITE_MARGIN * 0, SPRITE_HEIGHT * 2 + SPRITE_MARGIN * 2,
+                           SPRITE_WIDTH, SPRITE_HEIGHT))
+sprites.append(ship_sunk)
 # ---turn (40x20)---
-
+ship_turn = pygame.Surface((40, 20))
+ship_turn.blit(sprite_sheet, (0, 0),
+               pygame.Rect(SPRITE_WIDTH * 1 + SPRITE_MARGIN * 1, SPRITE_HEIGHT * 2 + SPRITE_MARGIN * 2,
+                           40, 20))
+sprites.append(ship_turn)
 # ---msg_box (250x122)---
-
+msg_box = pygame.Surface((250, 122))
+msg_box.blit(sprite_sheet, (0, 0),
+             pygame.Rect(SPRITE_WIDTH * 0 + SPRITE_MARGIN * 0, SPRITE_HEIGHT * 3 + SPRITE_MARGIN * 3,
+                         250, 122))
+sprites.append(msg_box)
 # --------- END YOUR CODE ------------
 
 

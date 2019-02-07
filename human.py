@@ -1,7 +1,5 @@
-import ship, game_board, sprites
-from random import randint
+import ship, game_board, random
 from typing import List, Tuple, Optional
-
 
 
 class Human:
@@ -49,25 +47,54 @@ class Human:
         for ship_length in [5, 4, 3, 3, 2]:
 
             # --------- BEGIN YOUR CODE ----------
+            valid_place = False
+            while not valid_place:
+                # 1.) create ship of the given length at a random (row,col)
+                #     position either horizontal or vertical
+                valid_index = False
+                while not valid_index:
+                    x_orig = random.randint(0, 9)
+                    y_orig = random.randint(0, 9)
+                    vert = random.choice([True, False])
+                    if vert is True:
+                        max_index = y_orig + ship_length
+                    else:
+                        max_index = x_orig + ship_length
 
-            pass  # remove this line
+                    if max_index < 9:
+                        valid_index = True
 
-            # 1.) create ship of the given length at a random (row,col)
-            #     position either horizontal or vertical
-            # x_orig = random.randint(0, 9)
-            # y_orig = random.randint(0, 9)
-            # orient = random.choice('Horizontal', 'Vertical')
-            # 2.) check if this conflicts with any of the other ships by
-            #     by making sure that every entry in _board_matrix is None
+                my_ship = ship.Ship(ship_length, y_orig, x_orig, vert)
+                # 2.) check if this conflicts with any of the other ships by
+                #     by making sure that every entry in _board_matrix is None
+                valid = []
+                for i in range(my_ship.length):
+                    if my_ship.is_vertical is True:
+                        if self._board_matrix[my_ship.row + i][my_ship.col] is None:
+                            valid.append('Yes')
+                        else:
+                            valid.append('No')
 
+                    else:
+                        if self._board_matrix[my_ship.row][my_ship.col + i] is None:
+                            valid.append('Yes')
+                        else:
+                            valid.append('No')
             # 2b.) If the ship is not valid, retry step 1
-
             # 3.) If the ship is valid set the appropriate elements _board_matrix array
             #     equal to the ship
             # Example: to place a vertical destroyer at C2:
             #    board_matrix[2][2] = my_ship
             #    board_matrix[3][2] = my_ship
+                if 'No' not in valid:
+                    for i in range(my_ship.length):
+                        if my_ship.is_vertical is True:
+                            self._board_matrix[my_ship.row + i][my_ship.col] = my_ship
+                        if my_ship.is_vertical is False:
+                            self._board_matrix[my_ship.row][my_ship.col + i] = my_ship
 
+                    valid_place = True
+                    self._my_ships.append(my_ship)
             # --------- END YOUR CODE ----------
 
     def print_board(self):
