@@ -59,6 +59,7 @@ def main():
     # create a human player
     player1 = human.Human()
     player1.initialize()
+    player1.print_board()
     player1.draw(my_board, their_board)
 
     # place the board on the screen

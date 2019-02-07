@@ -77,9 +77,9 @@ class GameBoard(pygame.sprite.Sprite):
 
         # Draw border around the board use color [foreground]
         pygame.draw.line(self.image, colors.foreground,
-                         (0, self.height - 2), (self.x_step * NBLOCKS, self.height - 2), 2)
+                         (0, self.height - 1), (self.x_step * NBLOCKS, self.height - 1), 1)
         pygame.draw.line(self.image, colors.foreground,
-                         (self.width - 2, 0), (self.width - 2, self.y_step * NBLOCKS), 2)
+                         (self.width - 1, 0), (self.width - 1, self.y_step * NBLOCKS), 1)
 
         # --------- END YOUR CODE ------------
 
