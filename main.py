@@ -81,9 +81,9 @@ def main():
         their_board.draw(screen)
 
         # player2's turn
-        player1.take_turn(player2)
+        player2.take_turn(player2)
         # note: we always draw player1's board, why?
-        player1.draw(my_board, their_board)
+        player2.draw(my_board, their_board)
         my_board.draw(screen)
         their_board.draw(screen)
 
@@ -115,11 +115,17 @@ def _display_message(screen: pygame.Surface, msg: str):
     # --------- BEGIN YOUR CODE ----------
 
     # create a text object with size 42 font of [msg]
-
+    val = utilities.create_text(msg, 42, colors.foreground)
     # blit the text onto the box surface
-
+    val_rect = val.get_rect()
+    val_rect.centerx = box.width // 2
+    val_rect.centery = box.height // 2
+    box.blit(val, val_rect)
     # blit the box onto the center of the screen
-
+    box_rect = box.get_rect()
+    box_rect.centerx = screen.get_width() // 2
+    box_rect.centery = screen.get_height() // 2
+    screen.blit(box, box_rect)
     # remove this once you have implemented the drawing code
     print(msg)
 
