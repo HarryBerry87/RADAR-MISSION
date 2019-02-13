@@ -70,18 +70,21 @@ def main():
     # place the board on the screen
     their_board.draw(screen)
     my_board.draw(screen)
+    pygame.display.update()
 
     # play the game until one of the players is complete
     while not player1.complete and not player2.complete:
 
         # player1's turn
-        player1.take_turn(player2)
+        player1.take_turn(player1)
         player1.draw(my_board, their_board)
         my_board.draw(screen)
         their_board.draw(screen)
+        pygame.display.update()
 
         # player2's turn
         player2.take_turn(player2)
+
         # note: we always draw player1's board, why?
         player2.draw(my_board, their_board)
         my_board.draw(screen)
@@ -102,6 +105,13 @@ def main():
         _display_message(screen, "You Loose!")
     else:
         _display_message(screen, "Tie Game!")
+
+    # wait until the user closes the game
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
 
 
 def _display_message(screen: pygame.Surface, msg: str):

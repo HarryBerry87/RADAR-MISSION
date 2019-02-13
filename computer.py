@@ -14,7 +14,7 @@ class Computer:
         # list of (row,col) coordinates
         self._my_misses: List[Tuple[int, int]] = []
         # list of (row,col) coordinates
-        self._my_hit: List[Tuple[int, int]] = []
+        self._my_hits: List[Tuple[int, int]] = []
         # list of ship objects
         self._sunk_ships: List[ship.Ship] = []
         # list of (row,col) coordinates
@@ -136,7 +136,7 @@ class Computer:
 
         # Steps 2-4 are the same as Human.take_turn
 
-        # 2.) Call opponent.guess() to check wether the guess is a hit or miss
+        # 2.) Call opponent.guess() to check whether the guess is a hit or miss
 
         # 3.) Update my_hits, my_misses, and sunk_ships accordingly
 
@@ -171,3 +171,16 @@ class Computer:
 
         for my_ship in self._my_ships:
             my_ship.draw(their_board)
+        for miss in self._their_misses:
+            my_board.add_sprite(sprites.miss, miss)
+        for hit in self._their_hits:
+            my_board.add_sprite(sprites.hit, hit)
+
+        # draw hit indicators on their board
+        for miss in self._my_misses:
+            their_board.add_sprite(sprites.miss, miss)
+        for their_ship in self._sunk_ships:
+            their_ship.draw(their_board)
+        for hit in self._my_hits:
+            their_board.add_sprite(sprites.hit, hit)
+

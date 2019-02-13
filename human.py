@@ -96,6 +96,7 @@ class Human:
 
                     valid_place = True
                     self._my_ships.append(my_ship)
+
             # --------- END YOUR CODE ----------
 
     def guess(self, row, col) -> Tuple[int, Optional[ship.Ship]]:
