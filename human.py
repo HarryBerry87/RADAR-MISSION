@@ -2,6 +2,7 @@
 import ship, game_board, sprites
 from random import randint, choice
 from typing import List, Tuple, Optional
+from string import ascii_lowercase
 
 
 class Human:
@@ -122,20 +123,33 @@ class Human:
         # --------- BEGIN YOUR CODE ----------
 
         # Hit logic:
-        # make sure this is a *new* hit (no double guesses)
-        # add to _their_hits
-        # hit the ship
-        # check if ship is sunk
-        # return either (1,None) or (2,my_ship)
+        if my_ship is not None:
+            # make sure this is a *new* hit (no double guesses)
+            if [row, col] in self._their_hits:
+                print('double hit')
+                return 1, my_ship
+            # add to _their_hits
+            self._their_hits.append([row, col])
+            # hit the ship
+            my_ship.hit()
+            # check if ship is sunk
+            if my_ship.sunk is True:
+                # return either (1,None) or (2,my_ship)
+                return 2, my_ship
+            else:
+                return 1, my_ship
 
         # Miss logic:
-        # add to _their_misses
-        # return (0, None)
+        if my_ship is None:
+            # add to _their_misses
+            self._their_misses.append([row, col])
+            # return (0, None)
+            return 0, None
 
         # --------- END YOUR CODE ----------
 
+    def take_turn(self, opponent, name):
 
-    def take_turn(self, opponent):
         """
         Prompt the user to guess a row and column. The user should enter a lower case letter
         followed by a number. Updates self._my_hits, self._my_misses, and self._sunk_ships
@@ -145,12 +159,37 @@ class Human:
 
         # 1.) Prompt user for a guess. Valid input would be a string like c,4
         #     If the guess is not valid ask the user to enter another guess
+        valid_guess = False
+        while valid_guess is False:
+            print('Enter a (row,col) guess:', end=' ')
+            coords = input()
+            if coords[0] not in ascii_lowercase[:10] or int(coords[2:]) not in range(10):
+                print('Invalid row (a-j) or column (0-9)!')
+            else:
+                row = ascii_lowercase.index(coords[0])
+                col = int(coords[2])
+                if [row, col] in self._my_misses or [row, col] in self._my_hits:
+                    print("You've already guessed that!")
+                else:
+                    valid_guess = True
 
-        # 2.) Call opponent.guess() to check wether the guess is a hit or miss
+        # 2.) Call opponent.guess() to check whether the guess is a hit or miss
+        result = opponent.guess(row, col)
 
         # 3.) Update my_hits, my_misses, and sunk_ships accordingly
+        if result[0] is 0:
+            self._my_misses.append([row, col])
+
+        elif result[0] is 1:
+            self._my_hits.append([row, col])
+
+        if result[0] is 2:
+            self._my_hits.append([row, col])
+            self._sunk_ships.append(result[1])
 
         # 4.) If the sunk_ships array has 5 ships in it set self.complete to True
+        if len(self._sunk_ships) is 5:
+            self.complete = True
 
         # --------- END YOUR CODE ----------
 

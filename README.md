@@ -1,5 +1,7 @@
-# EW432 Battleship Game
+# RADAR MISSION
 
-## author
+## by 1/C Harrison Kubena
 
-*your custom description here*
+*For Prof Donnal's EW432 course*
+
+Sink the Iranian Revolutionary Guard Navy before they can sink yours!

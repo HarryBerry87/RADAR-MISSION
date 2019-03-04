@@ -119,12 +119,34 @@ class Computer:
 
         # --------- BEGIN YOUR CODE ----------
 
-        # This is exactly the same as Human.guess, just copy the code over
+        # Hit logic:
+        if my_ship is not None:
+            # make sure this is a *new* hit (no double guesses)
+            if [row, col] in self._their_hits:
+                print('double hit')
+                return 1, my_ship
+            # add to _their_hits
+            self._their_hits.append([row, col])
+            # hit the ship
+            my_ship.hit()
+            # check if ship is sunk
+            if my_ship.sunk is True:
+                # return either (1,None) or (2,my_ship)
+                return 2, my_ship
+            else:
+                return 1, my_ship
+
+        # Miss logic:
+        if my_ship is None:
+            # add to _their_misses
+            self._their_misses.append([row, col])
+            # return (0, None)
+            return 0, None
 
         # --------- END YOUR CODE ----------
 
 
-    def take_turn(self, opponent):
+    def take_turn(self, opponent, name):
         """
         Guess a new row,col space. This may be random or use a more sophisticated AI.
         Updates self._my_hits, self._my_misses, and self._sunk_ships
@@ -133,19 +155,91 @@ class Computer:
         # --------- BEGIN YOUR CODE ----------
 
         # 1.) Guess a random space that has not been guessed (or be more clever!)
+        valid_guess = False
+        dummy = 0
+        compass = ['north', 'south', 'east', 'west']
+        x = [0, 3, 5, 7, 9, 10, 10, 10, 10, 10, 10]
+        while valid_guess is False:
+            if dummy in range(x[0], x[1]) and self._my_hits:
+                dir = compass[randint(0, 3)]
+                old_hit = self._my_hits[-1]
+            elif dummy in range(x[1], x[2]) and len(self._my_hits) > 1:
+                dir = compass[randint(0, 3)]
+                old_hit = self._my_hits[-2]
+            elif dummy in range(x[2], x[3]) and len(self._my_hits) > 2:
+                dir = compass[randint(0, 3)]
+                old_hit = self._my_hits[-3]
+            elif dummy in range(x[3], x[4]) and len(self._my_hits) > 3:
+                dir = compass[randint(0, 3)]
+                old_hit = self._my_hits[-4]
+            elif dummy in range(x[4], x[5]) and len(self._my_hits) > 4:
+                dir = compass[randint(0, 3)]
+                old_hit = self._my_hits[-5]
+            elif dummy in range(x[5], x[6]) and len(self._my_hits) > 5:
+                dir = compass[randint(0, 3)]
+                old_hit = self._my_hits[-6]
+            elif dummy in range(x[6], x[7]) and len(self._my_hits) > 6:
+                dir = compass[randint(0, 3)]
+                old_hit = self._my_hits[-7]
+            elif dummy in range(x[7], x[8]) and len(self._my_hits) > 7:
+                dir = compass[randint(0, 3)]
+                old_hit = self._my_hits[-8]
+            elif dummy in range(x[8], x[9]) and len(self._my_hits) > 8:
+                dir = compass[randint(0, 3)]
+                old_hit = self._my_hits[-9]
+            elif dummy in range(x[9], x[10]) and len(self._my_hits) > 9:
+                dir = compass[randint(0, 3)]
+                old_hit = self._my_hits[-10]
+            else:
+                dir = 'blind'
+                row = randint(0, 9)
+                col = randint(0, 9)
+
+            if dir is 'north':
+                row = old_hit[0] - 1
+                col = old_hit[1]
+            if dir is 'east':
+                row = old_hit[0]
+                col = old_hit[1] + 1
+            if dir is 'south':
+                row = old_hit[0] + 1
+                col = old_hit[1]
+            if dir is 'west':
+                row = old_hit[0]
+                col = old_hit[1] - 1
+            if [row, col] not in self._my_misses and [row, col] not in self._my_hits:
+                if row in range(10) and col in range(10):
+                    valid_guess = True
+                    if name is 'USN':
+                        print(name + "'s shot was " + dir + str(dummy))
+            else:
+                dummy += 1
+
+
 
         # Steps 2-4 are the same as Human.take_turn
-
         # 2.) Call opponent.guess() to check whether the guess is a hit or miss
+        result = opponent.guess(row, col)
 
         # 3.) Update my_hits, my_misses, and sunk_ships accordingly
+        if result[0] is 0:
+            self._my_misses.append([row, col])
+
+        elif result[0] is 1:
+            self._my_hits.append([row, col])
+
+        if result[0] is 2:
+            self._my_hits.append([row, col])
+            self._sunk_ships.append(result[1])
 
         # 4.) If the sunk_ships array has 5 ships in it set self.complete to True
+        if len(self._sunk_ships) is 5:
+            self.complete = True
 
         # --------- END YOUR CODE ----------
 
         # enforce a short delay to make the computer appear to "think" about its guess
-        time.sleep(0.5)
+        time.sleep(0.05)
 
     def print_board(self):
         """
@@ -170,7 +264,7 @@ class Computer:
         ship positions, guesses, hits, etc """
 
         for my_ship in self._my_ships:
-            my_ship.draw(their_board)
+            my_ship.draw(my_board)
         for miss in self._their_misses:
             my_board.add_sprite(sprites.miss, miss)
         for hit in self._their_hits:

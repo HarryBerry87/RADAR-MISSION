@@ -58,14 +58,14 @@ def main():
     # --------- END YOUR CODE ------------
 
     # create a human player
-    player1 = human.Human()
+    player1 = computer.Computer()
     player1.initialize()
-    player1.print_board()
     player1.draw(my_board, their_board)
 
     # create a computer player
     player2 = computer.Computer()
     player2.initialize()
+    player2.print_board()
 
     # place the board on the screen
     their_board.draw(screen)
@@ -76,17 +76,17 @@ def main():
     while not player1.complete and not player2.complete:
 
         # player1's turn
-        player1.take_turn(player1)
+        player1.take_turn(player2, 'USN')
         player1.draw(my_board, their_board)
         my_board.draw(screen)
         their_board.draw(screen)
         pygame.display.update()
 
         # player2's turn
-        player2.take_turn(player2)
+        player2.take_turn(player1, 'IRGN')
 
         # note: we always draw player1's board, why?
-        player2.draw(my_board, their_board)
+        player1.draw(my_board, their_board)
         my_board.draw(screen)
         their_board.draw(screen)
 
@@ -100,11 +100,14 @@ def main():
     # display the winner
     if player1.complete and not player2.complete:
         _display_message(screen, "You Win!")
-
     elif player2.complete and not player1.complete:
-        _display_message(screen, "You Loose!")
+        _display_message(screen, "You Lose!")
     else:
         _display_message(screen, "Tie Game!")
+
+    print("Player 1's Miss/Hit ratio was " + str(
+        len(player1._my_misses) / len(player1._my_hits)) + ". \n Player 2's ratio was " + str(
+        len(player2._my_misses) / len(player2._my_hits)))
 
     # wait until the user closes the game
     while True:
@@ -128,16 +131,16 @@ def _display_message(screen: pygame.Surface, msg: str):
     val = utilities.create_text(msg, 42, colors.foreground)
     # blit the text onto the box surface
     val_rect = val.get_rect()
-    val_rect.centerx = box.width // 2
-    val_rect.centery = box.height // 2
+    val_rect.centerx = box.get_width() // 2
+    val_rect.centery = box.get_height() // 2
     box.blit(val, val_rect)
     # blit the box onto the center of the screen
     box_rect = box.get_rect()
     box_rect.centerx = screen.get_width() // 2
     box_rect.centery = screen.get_height() // 2
     screen.blit(box, box_rect)
-    # remove this once you have implemented the drawing code
-    print(msg)
+    pygame.display.update()
+
 
     # --------- BEGIN YOUR CODE ----------
 
